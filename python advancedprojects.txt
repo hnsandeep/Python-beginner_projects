@@ -1,0 +1,159 @@
+🖥  10 Advanced Python Scripts For Everyday Programming
+
+1. SpeedTest with Python
+# pip install pyspeedtest
+# pip install speedtest
+# pip install speedtest-cli
+
+#method 1
+import speedtest
+
+speedTest = speedtest.Speedtest()
+print(speedTest.get_best_server())
+
+#Check download speed
+print(speedTest.download())
+
+#Check upload speed
+print(speedTest.upload())
+
+# Method 2
+
+import pyspeedtest
+st = pyspeedtest.SpeedTest()
+st.ping()
+st.download()
+st.upload()
+
+2. Search on Google
+# pip install google
+
+from googlesearch import search
+
+query = "Medium.com"
+
+for url in search(query):
+    print(url)
+
+3. Make Web Bot
+# pip install selenium
+
+import time
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+bot = webdriver.Chrome("chromedriver.exe")
+bot.get('[http://www.google.com'](http://www.google.com'))
+
+search = bot.find_element_by_name('q')
+search.send_keys("@codedev101")
+search.send_keys(Keys.RETURN)
+time.sleep(5)
+bot.quit()
+
+4. Fetch Song Lyrics
+# pip install lyricsgenius
+
+import lyricsgenius
+
+api_key = "xxxxxxxxxxxxxxxxxxxxx"
+
+genius = lyricsgenius.Genius(api_key)
+artist = genius.search_artist("Pop Smoke", max_songs=5,sort="title")
+song = artist.song("100k On a Coupe")
+
+print(song.lyrics)
+
+5. Get Exif Data of Photos
+# Get Exif of Photo
+
+# Method 1
+# pip install pillow
+import PIL.Image
+import PIL.ExifTags
+
+img = PIL.Image.open("Img.jpg")
+exif_data =
+{
+    PIL.ExifTags.TAGS[i]: j
+    for i, j in img._getexif().items()
+    if i in PIL.ExifTags.TAGS
+}
+print(exif_data)
+
+
+# Method 2
+# pip install ExifRead
+import exifread
+
+filename = open(path_name, 'rb')
+
+tags = exifread.process_file(filename)
+print(tags)
+
+6. OCR Text from Image
+# pip install pytesseract
+
+import pytesseract
+from PIL import Image
+
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+t=Image.open("img.png")
+text = pytesseract.image_to_string(t, config='')
+
+print(text)
+
+7. Convert Photo into Cartonize
+# pip install opencv-python
+
+import cv2
+
+img = cv2.imread('img.jpg')
+grayimg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+grayimg  = cv2.medianBlur(grayimg, 5)
+
+edges = cv2.Laplacian(grayimg , cv2.CV_8U, ksize=5)
+r,mask =cv2.threshold(edges,100,255,cv2.THRESH_BINARY_INV)
+
+img2 = cv2.bitwise_and(img, img, mask=mask)
+img2 = cv2.medianBlur(img2, 5)
+
+cv2.imwrite("cartooned.jpg", mask)
+
+8. Empty Recycle Bin
+# pip install winshell
+
+import winshell
+try:
+    winshell.recycle_bin().empty(confirm=False, /show_progress=False, sound=True)
+    print("Recycle bin is emptied Now")
+except:
+    print("Recycle bin already empty")
+
+9. Python Image Enhancement
+# pip install pillow
+
+from PIL import Image,ImageFilter
+from PIL import ImageEnhance
+
+im = Image.open('img.jpg')
+
+# Choose your filter
+# add Hastag at start if you don't want to any filter below
+
+en = ImageEnhance.Color(im)
+en = ImageEnhance.Contrast(im)
+en = ImageEnhance.Brightness(im)
+en = ImageEnhance.Sharpness(im)
+
+# result
+en.enhance(1.5).show("enhanced")
+
+10. Get Window Version
+# Window Version
+
+import wmi
+data = wmi.WMI()
+for os_name in data.Win32_OperatingSystem():
+  print(os_name.Caption) # Microsoft Windows 11 Home
